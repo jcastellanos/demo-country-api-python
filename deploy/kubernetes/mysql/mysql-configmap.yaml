@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: mysql-config
 data:
+  mysql-user: "user-app"
   mysql-database: "demo_country_api"
   init.sql: |
     CREATE TABLE country (
