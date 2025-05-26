@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-country-api-app
+  labels:
+    app: demo-country-api-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-country-api-app
+  template:
+    metadata:
+      labels:
+        app: demo-country-api-app
+    spec:
+      containers:
+      - name: demo-country-api
+        image: jcastellanos/demo-country-api-python:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: demo-country-api-config
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: demo-country-api-secret
+              key: MYSQL_PASSWORD
+        - name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: demo-country-api-config
+              key: MYSQL_HOST
+        - name: MYSQL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: demo-country-api-config
+              key: MYSQL_PORT
+        - name: MYSQL_DB
+          valueFrom:
+            configMapKeyRef:
+              name: demo-country-api-config
+              key: MYSQL_DB
+        livenessProbe:
+          httpGet:
+            path: /health/liveness
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health/readiness
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10

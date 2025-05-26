@@ -1,0 +1,1 @@
+kubectl --kubeconfig ./config.yaml delete namespace demo-contry-api-python

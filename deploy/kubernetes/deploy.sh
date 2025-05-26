@@ -1,0 +1,1 @@
+kubectl --kubeconfig ./config.yaml apply -f namespace.yaml
