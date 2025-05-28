@@ -22,7 +22,7 @@ spec:
     # para el clúster donde Argo CD debe CREAR esas Application CRDs.
     # En este ejemplo, dado que path es argocd-apps/, ArgoCD buscará Applications allí.
     server: https://kubernetes.default.svc # O el servidor de tu clúster de Argo CD
-    namespace: argocd # Donde se crean las Application CRDs hijas
+    namespace: demo-contry-api-python # Donde se crean las Application CRDs hijas
   syncPolicy:
     automated:
       prune: true
