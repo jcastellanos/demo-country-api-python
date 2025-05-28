@@ -7,7 +7,7 @@ spec:
   project: demo-country-api # Tu proyecto específico en Argo CD
   source:
     repoURL: 'https://github.com/jcastellanos/demo-country-api-python' # Apunta al mismo repo donde están estas definiciones
-    path: argocd-apps # Directorio que contiene las definiciones de las apps hijas
+    path: deploy/kubernetes/argocd-apps # Directorio que contiene las definiciones de las apps hijas
     targetRevision: HEAD
     # Opcional: si usas Kustomize o Helm para generar estas Application CRDs
     # kustomize: {}

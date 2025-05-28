@@ -1,1 +1,1 @@
-kubectl apply -f argocd-apps/app-of-apps.yaml -n argocd
+kubectl --kubeconfig ./config.yaml apply -f argocd-apps/app-of-apps.yaml -n argocd

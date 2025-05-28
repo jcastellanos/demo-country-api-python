@@ -10,7 +10,7 @@ spec:
   project: demo-country-api # Proyecto específico en Argo CD
   source:
     repoURL: 'https://github.com/jcastellanos/demo-country-api-python'
-    path: components/mysql-master # Directorio con los YAMLs de MySQL
+    path: deploy/kubernetes/components/mysql-master # Directorio con los YAMLs de MySQL
     targetRevision: HEAD # O una rama/tag específico
   destination:
     server: https://kubernetes.default.svc

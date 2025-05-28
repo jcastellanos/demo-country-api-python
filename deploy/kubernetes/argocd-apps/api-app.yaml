@@ -10,7 +10,7 @@ spec:
   project: demo-country-api
   source:
     repoURL: 'https://github.com/jcastellanos/demo-country-api-python'
-    path: components/api
+    path: deploy/kubernetes/components/api
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
