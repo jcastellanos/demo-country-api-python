@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: demo-country-api-python # Nombre de tu aplicación paraguas
+  name: solution-demo-country-api-python # Nombre de tu aplicación paraguas
   namespace: argocd # El namespace donde corre Argo CD
 spec:
   project: demo-country-api # Tu proyecto específico en Argo CD
