@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mysql-master
+  namespace: argocd # El namespace donde corre Argo CD
+  annotations:
+    # La ola más baja, se sincroniza primero
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: demo-country-api # Proyecto específico en Argo CD
+  source:
+    repoURL: 'https://github.com/jcastellanos/demo-country-api-python'
+    path: components/mysql-master # Directorio con los YAMLs de MySQL
+    targetRevision: HEAD # O una rama/tag específico
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: demo-contry-api-python # Namespace donde se desplegará MySQL
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true # Crea el namespace si no existe

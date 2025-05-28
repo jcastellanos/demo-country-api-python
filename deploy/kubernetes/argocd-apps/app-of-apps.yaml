@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-country-api-python # Nombre de tu aplicación paraguas
+  namespace: argocd # El namespace donde corre Argo CD
+spec:
+  project: demo-country-api # Tu proyecto específico en Argo CD
+  source:
+    repoURL: 'https://github.com/jcastellanos/demo-country-api-python' # Apunta al mismo repo donde están estas definiciones
+    path: argocd-apps # Directorio que contiene las definiciones de las apps hijas
+    targetRevision: HEAD
+    # Opcional: si usas Kustomize o Helm para generar estas Application CRDs
+    # kustomize: {}
+    # directory:
+    #   recurse: true # Si las definiciones de app están en subdirectorios
+  destination:
+    # Para una app of apps, el servidor y namespace de destino suelen ser el propio clúster de Argo CD,
+    # ya que los recursos que crea son otras 'Applications' de Argo CD.
+    # PERO, como las 'Application' hijas ya especifican su 'destination',
+    # el 'destination' de la app paraguas puede ser simbólico o el clúster de Argo CD.
+    # Si las apps hijas NO estuvieran en el mismo repo y path, la 'destination' aquí sería más relevante
+    # para el clúster donde Argo CD debe CREAR esas Application CRDs.
+    # En este ejemplo, dado que path es argocd-apps/, ArgoCD buscará Applications allí.
+    server: https://kubernetes.default.svc # O el servidor de tu clúster de Argo CD
+    namespace: argocd # Donde se crean las Application CRDs hijas
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    # No es necesario syncOptions: [CreateNamespace=true] aquí si las apps hijas ya lo tienen
+    # y el namespace 'argocd' ya existe.

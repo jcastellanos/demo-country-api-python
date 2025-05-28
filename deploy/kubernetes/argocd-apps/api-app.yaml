@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: api-app
+  namespace: argocd
+  annotations:
+    # Se sincroniza después de la ola 0
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: demo-country-api
+  source:
+    repoURL: 'https://github.com/jcastellanos/demo-country-api-python'
+    path: components/api
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: demo-contry-api-python
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
